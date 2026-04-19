@@ -1,73 +1,82 @@
-# HR Workflow Designer Prototype
+# HR Workflow Designer (Prototype)
 
-A React + TypeScript + React Flow prototype for visually building and simulating internal HR workflows such as onboarding, leave approval, and document verification.
+This is a small prototype of a visual workflow builder for HR processes (like onboarding, approvals, etc.).  
+The idea is to let an admin create workflows by dragging nodes, connecting them, configuring each step, and running a basic simulation.
 
-## What is included
 
-- Drag-and-drop React Flow canvas
-- Five custom node types
+
+## What’s implemented
+
+- Drag-and-drop workflow canvas (React Flow)
+- Multiple node types:
   - Start
   - Task
   - Approval
-  - Automation
+  - Automated Step
   - End
-- Dynamic node configuration panel
-- Mock API layer
-  - `GET /automations` equivalent through local async mock
-  - `POST /simulate` equivalent through local async mock
-- Workflow validation
-  - exactly one Start node
-  - at least one End node
-  - missing connections
-  - cycle detection
-- Sandbox panel with workflow JSON and execution timeline
+- Editable configuration panel for each node
+- Basic mock API layer for automation actions
+- Simple workflow simulation panel (step-by-step log)
+- Basic validation (e.g. workflow must start with a Start node)
 
-## Tech stack
 
-- React
-- TypeScript
-- Vite
-- React Flow
-- Zustand
 
-## Run locally
+## Tech Stack
 
-```bash
-npm install
-npm run dev
-```
+- React + TypeScript (Vite)
+- React Flow (for graph/canvas)
+- Zustand (state management)
+- Simple mock API (no backend)
 
-Then open the local Vite URL shown in the terminal. http://localhost:5173/
 
-## Folder structure
 
-```text
-src/
-  api/                mock API abstraction
-  components/         canvas, forms, sandbox, custom nodes
-  store/              Zustand workflow state
-  types/              node and workflow interfaces
-  utils/              validation and node creation helpers
-```
+## Project Structure
+'''text
+src/  
+├── components/  
+│   ├── Canvas/  
+│   ├── Sidebar/  
+│   ├── FormPanel/  
+│   ├── Sandbox/  
+│   └── nodes/  
+├── store/  
+├── api/  
+└── types/  
+'''
 
-## Design decisions
+The structure is kept modular so adding new node types later is straightforward.
 
-### 1. Zustand for app state
-The workflow graph and selected node state are shared across the canvas, form panel, and sandbox. Zustand keeps this simple without adding too much boilerplate.
 
-### 2. Node factory + typed defaults
-Each node type is created through a factory so that default data shapes stay consistent and extensible.
 
-### 3. Mock API abstraction
-Even though this prototype uses local async mocks, the UI already talks to an API layer. This makes it easy to replace with a real backend later.
+## How to run
 
-### 4. Type-first forms
-Each node type has its own controlled form section. The automation node supports dynamic fields based on the selected mock action definition.
+npm install  
+npm run dev  
+
+App runs at:  
+http://localhost:5173
+
+
+
+## How it works (quick idea)
+
+- Nodes and edges are stored globally using Zustand  
+- Each node has a `type` and a `data` object  
+- When a node is selected, the form panel updates its `data`  
+- The sandbox serializes the workflow and simulates execution using a mock API  
+
+
+## Design choices
+
+- Used Zustand instead of Redux to keep things lightweight  
+- Kept node logic separate from canvas logic  
+- Forms are controlled components so they can be extended easily  
+- Mock API instead of real backend to keep focus on frontend architecture  
+
 
 ## Assumptions
 
-- One workflow entry point is enough for this prototype.
-- Simulation is linearized through topological sorting and supports only acyclic flows.
-- Persistence and authentication are intentionally excluded per the case study.
-
+- No authentication needed  
+- No persistence (everything is in-memory)  
+- Validation is minimal (only basic structure checks)  
 

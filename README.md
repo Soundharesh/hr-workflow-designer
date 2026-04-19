@@ -37,8 +37,7 @@ npm install
 npm run dev
 ```
 
--Then open the local Vite URL shown in the terminal.
--Eg: http://localhost:5173
+Then open the local Vite URL shown in the terminal.   http://localhost:5173
 
 ## Folder structure
 

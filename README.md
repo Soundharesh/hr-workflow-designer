@@ -70,7 +70,7 @@ Each node type has its own controlled form section. The automation node supports
 - Simulation is linearized through topological sorting and supports only acyclic flows.
 - Persistence and authentication are intentionally excluded per the case study.
 
-## With more time
+## Additionally
 
 - JSON import/export
 - visual node-level error states
